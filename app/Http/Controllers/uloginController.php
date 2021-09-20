@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
  * @mixin Builder
  */
 
-class UloginController extends Controller
+class uloginController extends Controller
 {
     public function login(Request $request)
     {
@@ -52,6 +52,11 @@ class UloginController extends Controller
 
             return redirect('/');
         }
+    }
+
+    public function log()
+    {
+
     }
     //
 }

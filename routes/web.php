@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\UsersController@index');
-Route::post('ulogin', 'App\Http\Controllers\UloginController@login');
+Route::post('ulogin', 'App\Http\Controllers\uloginController@login');
 Route::delete('userdelete/{user}', 'App\Http\Controllers\UsersController@deleteUser')->name('deleteUser');
 Route::put('userblock/{user}', 'App\Http\Controllers\UsersController@blockUser')->name('blockUser');
 Route::put('userunblock/{user}', 'App\Http\Controllers\UsersController@unblockUser')->name('unblockUser');
