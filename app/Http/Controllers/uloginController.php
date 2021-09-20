@@ -21,7 +21,6 @@ class uloginController extends Controller
     public function login(Request $request)
     {
         $data = file_get_contents('http://ulogin.ru/token.php?token=' . $_POST['token'] . '&host=' . $_SERVER['HTTP_HOST']);
-        dd($data);
         $user = json_decode($data, TRUE);
         $userData = User::where('email', $user['email'])->first();
         // Check exist user.
@@ -53,10 +52,6 @@ class uloginController extends Controller
             return redirect('/');
         }
     }
-
-    public function log()
-    {
-
-    }
+    
     //
 }
