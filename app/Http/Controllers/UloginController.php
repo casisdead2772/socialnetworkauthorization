@@ -26,7 +26,7 @@ class UloginController extends Controller
         // Check exist user.
         if (isset($userData->id)) {
             if($userData->status === 'Blocked'){
-                return Redirect::back()->withErrors(['error']);
+                return redirect('/')->withErrors(['error']);
             }
 
             Auth::loginUsingId($userData->id, TRUE);
