@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('users.index');
 });
 
 Route::post('ulogin', 'App\Http\Controllers\UloginController@login');
 Route::delete('userdelete/{user}', 'App\Http\Controllers\UsersController@deleteUser')->name('deleteUser');
 Route::put('userblock/{user}', 'App\Http\Controllers\UsersController@blockUser')->name('blockUser');
 Route::put('userunblock/{user}', 'App\Http\Controllers\UsersController@unblockUser')->name('unblockUser');
+
+Auth::routes();
