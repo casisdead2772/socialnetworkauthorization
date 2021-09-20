@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use JsonException;
 
@@ -51,11 +53,18 @@ class UsersController extends Controller
      * @param int $id
      * @return Application|Factory|View
      */
-    public function blockUser(int $id)
+    public function blockUser(Request $request, int $id)
     {
-        $user = User::findOrFail($id);
-        $user->status = 'Blocked';
-        $user->save();
+        $user = auth()->user();
+        $blockedUser = User::findOrFail($id);
+        $blockedUser->status = 'Blocked';
+        if($user->id === $blockedUser->id){
+                Auth::logout();
+                \Session::flush();
+                \Session::invalidate();
+                \Session::regenerateToken();
+        }
+        $blockedUser->save();
         return redirect('/');
 
     }

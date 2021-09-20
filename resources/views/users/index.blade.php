@@ -1,8 +1,10 @@
 @extends('layouts.dashboard')
 @section('count')
+    @if(isset($countUsers))
     <div class="container col-md-5 p-lg-2 mx-auto my-2">
         <h2>There are {{ $countUsers }} users on the site</h2>
     </div>
+    @endif
 @endsection
 
 @section('chart')
@@ -56,7 +58,7 @@
 
 @section('userTable')
     <div class="container" style="vertical-align: middle">
-        <table class="table table-bordered">
+        <table id="sortable" class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -98,7 +100,7 @@
                     <form action="{{ route('deleteUser', $user->id) }}" method="POST">
                         @method('DELETE')
                         @csrf
-                    <button type="submit" class="btn btn-danger btn-block" {{ method_field('put') }}<i class="fas fa-user-times"></i></button>
+                    <button type="submit" class="btn btn-danger btn-block" {{ method_field('delete') }}<i class="fas fa-user-times"></i></button>
                     </form>
                         </div>
                     </div>
@@ -107,4 +109,5 @@
         @endforeach
     </div>
     {{ $users->links() }}
+    <script src="/public/js/sortTable.js"></script>
 @endsection

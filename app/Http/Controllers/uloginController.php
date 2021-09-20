@@ -16,24 +16,22 @@ use Illuminate\Support\Str;
  * @mixin Builder
  */
 
-class UloginController extends Controller
+class uloginController extends Controller
 {
     public function login(Request $request)
     {
         $data = file_get_contents('http://ulogin.ru/token.php?token=' . $_POST['token'] . '&host=' . $_SERVER['HTTP_HOST']);
         $user = json_decode($data, TRUE);
-        $network = $user['network'];
-        $answer = '<strong>Whoops!</strong> You are blocked!';
         $userData = User::where('email', $user['email'])->first();
         // Check exist user.
         if (isset($userData->id)) {
             if($userData->status === 'Blocked'){
-                return Redirect::back()->withErrors(['error']);
-            } else {
-                Auth::loginUsingId($userData->id, TRUE);
-
-                return Redirect::back();
+                return redirect('/')->withErrors(['error']);
             }
+
+            Auth::loginUsingId($userData->id, TRUE);
+
+            return redirect('/');
 
         }
 
@@ -51,8 +49,9 @@ class UloginController extends Controller
 
             \Session::flash('flash_message', trans('interface.ActivatedSuccess'));
 
-            return Redirect::back();
+            return redirect('/');
         }
     }
+
     //
 }
