@@ -1,8 +1,10 @@
 @extends('layouts.dashboard')
 @section('count')
+    @if(isset($countUsers))
     <div class="container col-md-5 p-lg-2 mx-auto my-2">
         <h2>There are {{ $countUsers }} users on the site</h2>
     </div>
+    @endif
 @endsection
 
 @section('chart')
